@@ -120,6 +120,22 @@ Class Rooms
         Console.WriteLine("Battle: Start a Battle\n")
     }
 
+    Public String inspect(var arlist1, int i)
+    {
+        var tempInv = new ArrayList();
+        tempInv = arlist1;
+        if(i > 0 && i < tempInv.getRange())
+        {
+            String stats = "Name: " + tempInv[i].getName() + ",Type:  " + tempInv[i].getType() + ", HP: " + tempInv[i].getHp()
+            + ", ATK: " + tempInv[i].getAtk() + ", SPD: " + tempInv[i].getSpd() + ", Status: " + tempInv[i].getStatus();
+        }
+        else
+        {
+        return "Position is not Valid";
+        }
+    }
+
+
 
 
 }
