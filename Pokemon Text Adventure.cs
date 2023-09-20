@@ -140,7 +140,7 @@ Class Rooms
 
 }
 
-Class Pokemons
+Class Pokemon
 {
     private string name;
     private string type;
