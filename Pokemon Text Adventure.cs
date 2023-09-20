@@ -105,6 +105,13 @@ Class Rooms
 
     }
 
+    Public void help(){
+        Console.WriteLine("Move ____: Move in the in the direction you specify (e.g. Move North)\n")
+        Console.WriteLine("Catch ____: Catch the Pokemon you specify (e.g. Catch Pikachu)\n")
+        Console.WriteLine("Inspect ____: Inspect a Pokemon in your inventory (e.g. Inspect Pikachu)\n")
+        Console.WriteLine("Battle: Start a Battle\n")
+    }
+
 
 
 }
