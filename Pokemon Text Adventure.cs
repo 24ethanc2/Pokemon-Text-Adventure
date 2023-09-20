@@ -42,6 +42,7 @@ Class Rooms
 {
     private String name;
     private Pokemon[][] storage;
+    private static inventory = new ArrayList();
     storage = new Pokemon[9][5];
         storage[0][0] = new Pokemon("Pikachu", "Electric", 100, 20, 20, 0.5);
         storage[0][1] = new Pokemon("Eevee", "Normal", 100, 20, 20, 0.5);
@@ -88,6 +89,7 @@ Class Rooms
         storage[8][2] = new Pokemon("Frigibax", "Ice", 120, 30, 30, 0.25);
         storage[8][3] = new Pokemon("Finizen", "Water", 100, 20, 20, 0.5);
         storage[8][4] = new Pokemon("Miraidon", "Electric", 150, 40, 35, 0.05);
+    
     Public Class Rooms(String n, int x)
     {   
 
@@ -99,11 +101,17 @@ Class Rooms
     {
         return name;
     }
-
-    Public void catch()
-    {
-
-    }
+    
+    Public void catch(String name)
+     {
+        for (int i = 0;i < 9; i++) {
+            for (int j = 0;j < 5; j++) {
+                if ((storage[i][j].getName()).Equals(name)) {
+                    return storage[i][j];
+                }
+            }
+        }
+     }
 
     Public void help(){
         Console.WriteLine("Move ____: Move in the in the direction you specify (e.g. Move North)\n")
