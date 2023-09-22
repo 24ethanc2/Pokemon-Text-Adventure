@@ -3,32 +3,32 @@ class Runner
 {
     static void Main() 
     {
-        Rooms[] roomList = new Room[9];
-        var inventory = new ArrayList();
-        roomList[0] = new Room("Kanto", 0); roomList[1] = new Room("Johto", 1); roomList[2] = new Room("Unova", 2);
-        roomList[3] = new Room("Hoenn", 3); roomList[4] = new Room("Sinnoh", 4); roomList[5] = new Room("Kalos", 5);
-        roomList[6] = new Room("Alola", 6); roomList[7] = new Room("Galar", 7); roomList[8] = new Room("Paldea", 8);
+        Rooms[] roomList = new Rooms[9];
+        Pokemon[] inventory = new Pokemon[6];
+        roomList[0] = new Rooms("Kanto", 0); roomList[1] = new Rooms("Johto", 1); roomList[2] = new Rooms("Unova", 2);
+        roomList[3] = new Rooms("Hoenn", 3); roomList[4] = new Rooms("Sinnoh", 4); roomList[5] = new Rooms("Kalos", 5);
+        roomList[6] = new Rooms("Alola", 6); roomList[7] = new Rooms("Galar", 7); roomList[8] = new Rooms("Paldea", 8);
         Console.WriteLine("Welcome to Pokemon Text Adventure");
         Console.WriteLine("In this game, you will be able to explore all 9 regions of Pokemon");
         Console.WriteLine("You will have to catch pokemons in order to beat the final boss: Arceus himself");
         Console.WriteLine("But first, let's get you your first starter pokemon");
         while(true)
         {
-            Console.WriteLine("Please Choose your first starter:  | 1: Bulbasaur | 2: Charmander | 3: Squirtle | ");
-            int choice = Console.ReadLine().ParseInt();
+            Console.WriteLine("Please Choose your first starter:  \n| 1: Bulbasaur | 2: Charmander | 3: Squirtle | ");
+            int choice = int.Parse(Console.ReadLine());
             if(choice == 1)
             {
-                inventory.addRange(new Pokemon("Bulbasaur", "Grass", 100, 20, 20, 1));
+                inventory[0] = new Pokemon("Bulbasaur", "Grass", 100, 20, 20, 1);
                 break;
             }
             else if(choice == 2)
             { 
-                inventory.addRange(new Pokemon("Charmander", "Fire", 100, 20, 20, 1));
+                inventory[0] = new Pokemon("Charmander", "Fire", 100, 20, 20, 1);
                 break;
             }
             else if(choice == 3)
             {
-                inventory.addRange(new Pokemon("Squirtle", "Water", 100, 20, 20, 1));
+                inventory[0] = new Pokemon("Squirtle", "Water", 100, 20, 20, 1);
                 break;
             }
             else{
@@ -40,8 +40,12 @@ class Runner
 
 class Rooms
 {
-    private String name;
-    private Pokemon[,] storage = new Pokemon[9,5];
+    private string name;
+    private Pokemon[,] storage;
+
+    public Rooms(string n, int x)
+    {   
+        storage = new Pokemon[9,5];
         storage[0,0] = new Pokemon("Pikachu", "Electric", 100, 20, 20, 0.5);
         storage[0,1] = new Pokemon("Eevee", "Normal", 100, 20, 20, 0.5);
         storage[0,2] = new Pokemon("Dratini", "Dragon", 120, 30, 30, 0.25);
@@ -87,19 +91,20 @@ class Rooms
         storage[8,2] = new Pokemon("Frigibax", "Ice", 120, 30, 30, 0.25);
         storage[8,3] = new Pokemon("Finizen", "Water", 100, 20, 20, 0.5);
         storage[8,4] = new Pokemon("Miraidon", "Electric", 150, 40, 35, 0.05);
-    Public Class Rooms(String n, int x)
-    {   
-
-        Pokemon[] PokemonList = storage[x];
-
+        Pokemon[] list = new Pokemon[5];
+        for(int i = 0; i < 5; i++)
+        {
+            list[i] = storage[x,i];
+        }
+        
     }
 
-    Public String getRoomName()
+    public string getRoomName()
     {
         return name;
     }
 
-    Public void catch(String name)
+    public Pokemon Catch(string name)
     {
         for (int i = 0;i < 9; i++) {
             for (int j = 0;j < 5; j++) {
@@ -108,21 +113,23 @@ class Rooms
                 }
             }
         }
+        return null;
+        
     }
 
     public void help()
     {
-        Console.WriteLine("Move ____: Move in the in the direction you specify (e.g. Move North)\n")
-        Console.WriteLine("Catch ____: Catch the Pokemon you specify (e.g. Catch Pikachu)\n")
-        Console.WriteLine("Inspect ____: Inspect a Pokemon in your inventory (e.g. Inspect Pikachu)\n")
-        Console.WriteLine("Battle: Start a Battle\n")
+        Console.WriteLine("Move ____: Move in the in the direction you specify (e.g. Move North)\n");
+        Console.WriteLine("Catch ____: Catch the Pokemon you specify (e.g. Catch Pikachu)\n");
+        Console.WriteLine("Inspect ____: Inspect a Pokemon in your inventory (e.g. Inspect Pikachu)\n");
+        Console.WriteLine("Battle: Start a Battle\n");
     }
 
-    public String inspect(var arlist1, int i)
+    public string inspect(Pokemon[] arlist1, int i)
     {
-        var tempInv = new ArrayList();
+        Pokemon[] tempInv = new Pokemon[6];
         tempInv = arlist1;
-        if(i > 0 && i < tempInv.getRange())
+        if(i > 0 && i < tempInv.Length && tempInv[i] != null)
         {
             String stats = "Name: " + tempInv[i].getName() + ",Type:  " + tempInv[i].getType() + ", HP: " + tempInv[i].getHp()
             + ", ATK: " + tempInv[i].getAtk() + ", SPD: " + tempInv[i].getSpd() + ", Status: " + tempInv[i].getStatus();
@@ -131,6 +138,7 @@ class Rooms
         {
         return "Position is not Valid";
         }
+        return null;
     }
 
 
@@ -144,18 +152,18 @@ class Pokemon
     private int hp;
     private int atk; 
     private int spd;
-    private boolean alive;
-    private float rarity;
-    public Pokemon(String n, String t, int h, int s, float s){
-        name = n; type = t; hp = h; atk = h, spd = s; alive = true; rarity = s;
+    private bool alive;
+    private double rarity;
+    public Pokemon(string n, string t, int h, int a, int s, double e){
+        name = n; type = t; hp = h; atk = a; spd = s; alive = true; rarity = e;
     }
 
-    public String getName()
+    public string getName()
     {
         return name;
     }
 
-    public String getType()
+    public string getType()
     {
         return type;
     }
@@ -175,7 +183,7 @@ class Pokemon
         return spd;
     }
 
-    public boolean getStatus()
+    public bool getStatus()
     {
         return alive;
     }
