@@ -3,13 +3,13 @@ class Runner
 {
     static void Main() 
     {
-        Rooms[] roomList = new Rooms[9];
         Pokemon[] inventory = new Pokemon[6];
-        roomList[0] = new Rooms("Kanto", 0); roomList[1] = new Rooms("Johto", 1); roomList[2] = new Rooms("Unova", 2);
-        roomList[3] = new Rooms("Hoenn", 3); roomList[4] = new Rooms("Sinnoh", 4); roomList[5] = new Rooms("Kalos", 5);
-        roomList[6] = new Rooms("Alola", 6); roomList[7] = new Rooms("Galar", 7); roomList[8] = new Rooms("Paldea", 8);
+        Rooms[][] roomList = new Rooms[3][3];
+        roomList[0][0] = new Rooms("Kanto", 0); roomList[0][1] = new Rooms("Hoenn", 2); roomList[0][2] = new Rooms("Alola", 6);
+        roomList[1][0] = new Rooms("Johto", 1); roomList[1][1] = new Rooms("Sinnoh", 3); roomList[1][2] = new Rooms("Galar", 7);
+        roomList[2][0] = new Rooms("Unova", 4); roomList[2][1] = new Rooms("Kalos", 5); roomList[2][2] = new Rooms("Paldea", 8);
         Console.WriteLine("Welcome to Pokemon Text Adventure");
-        Console.WriteLine("In this game, you will be able to explore all 9 regions of Pokemon");
+        Console.WriteLine("In this game, you will be able to explore all 9 regions of Pokemon");    
         Console.WriteLine("You will have to catch pokemons in order to beat the final boss: Arceus himself");
         Console.WriteLine("But first, let's get you your first starter pokemon");
         while(true)
