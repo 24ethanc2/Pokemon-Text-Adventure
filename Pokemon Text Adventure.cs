@@ -49,7 +49,7 @@ class Rooms
 {
     private string name;
     private Pokemon[,] storage;
-
+    private Pokemon[] list;
     public Rooms(string n, int x)
     {   
         name = n;
@@ -99,7 +99,7 @@ class Rooms
         storage[8,2] = new Pokemon("Frigibax", "Ice", 120, 30, 30, 0.25);
         storage[8,3] = new Pokemon("Finizen", "Water", 100, 20, 20, 0.5);
         storage[8,4] = new Pokemon("Miraidon", "Electric", 150, 40, 35, 0.05);
-        Pokemon[] list = new Pokemon[5];
+        list = new Pokemon[5];
         for(int i = 0; i < 5; i++)
         {
             list[i] = storage[x,i];
@@ -139,7 +139,7 @@ class Rooms
         tempInv = arlist1;
         if(i > 0 && i < tempInv.Length && tempInv[i] != null)
         {
-            String stats = "Name: " + tempInv[i].getName() + ",Type:  " + tempInv[i].getType() + ", HP: " + tempInv[i].getHp()
+            string stats = "Name: " + tempInv[i].getName() + ",Type:  " + tempInv[i].getType() + ", HP: " + tempInv[i].getHp()
             + ", ATK: " + tempInv[i].getAtk() + ", SPD: " + tempInv[i].getSpd() + ", Status: " + tempInv[i].getStatus();
         }
         else
@@ -154,19 +154,19 @@ class Rooms
         Console.WriteLine("Welcome to " + n + " region, Trainer " + name + ". Please feel free to explore around and catch Pokemons");
     }
     
-    public void spawn() {
+    public string spawn() {
         Random rnd = new Random();
-        ArrayList spawns = new ArrayList();
+        string spawns = "";
         for (int i=0;i<list.Length;i++) {
-            if (list[i].getRarity()) {
-                int spawning = rnd.Next(2);
-                if (spawning < list[i].getRarity())
-                {
-                    spawns.addRange(list[i]);
-                }
+            double spawning = rnd.NextDouble();
+            if (spawning > list[i].getRarity())
+            {
+                spawns += list[i].getName() + " ";
             }
+        }
+        return spawns;
     }
-
+    return null;
 }
 
 class Pokemon
