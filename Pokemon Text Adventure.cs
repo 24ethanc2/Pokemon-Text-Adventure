@@ -4,12 +4,19 @@ class Runner
     static void Main() 
     {
         Pokemon[] inventory = new Pokemon[6];
-        Rooms[][] roomList = new Rooms[3][3];
-        roomList[0][0] = new Rooms("Kanto", 0); roomList[0][1] = new Rooms("Hoenn", 2); roomList[0][2] = new Rooms("Alola", 6);
-        roomList[1][0] = new Rooms("Johto", 1); roomList[1][1] = new Rooms("Sinnoh", 3); roomList[1][2] = new Rooms("Galar", 7);
-        roomList[2][0] = new Rooms("Unova", 4); roomList[2][1] = new Rooms("Kalos", 5); roomList[2][2] = new Rooms("Paldea", 8);
+        Rooms[,] roomList = new Rooms[3,3];
+        String name;
+        roomList[0,0] = new Rooms("Kanto", 0); roomList[0,1] = new Rooms("Hoenn", 2); roomList[0,2] = new Rooms("Alola", 6);
+        roomList[1,0] = new Rooms("Johto", 1); roomList[1,1] = new Rooms("Sinnoh", 3); roomList[1,2] = new Rooms("Galar", 7);
+        roomList[2,0] = new Rooms("Unova", 4); roomList[2,1] = new Rooms("Kalos", 5); roomList[2,2] = new Rooms("Paldea", 8);
         Console.WriteLine("Welcome to Pokemon Text Adventure");
-        Console.WriteLine("In this game, you will be able to explore all 9 regions of Pokemon");    
+        Console.WriteLine("What is your name? *default name is John");
+        name = Console.ReadLine();
+        if(name.Equals(""))
+        {
+            name = "John";
+        }
+        Console.WriteLine("Welcome, Trainer " + name + ". In this game, you will be able to explore all 9 regions of Pokemon");    
         Console.WriteLine("You will have to catch pokemons in order to beat the final boss: Arceus himself");
         Console.WriteLine("But first, let's get you your first starter pokemon");
         while(true)
@@ -141,6 +148,11 @@ class Rooms
         return null;
     }
 
+    public void description(string n, String name)
+    {
+        Console.WriteLine("Welcome to " + n + " region, Trainer " + name + ". Please feel free to explore around and catch Pokemons");
+    }
+    
 
 
 }
