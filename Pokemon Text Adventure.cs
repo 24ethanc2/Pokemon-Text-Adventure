@@ -52,6 +52,7 @@ class Rooms
 
     public Rooms(string n, int x)
     {   
+        name = n;
         storage = new Pokemon[9,5];
         storage[0,0] = new Pokemon("Pikachu", "Electric", 100, 20, 20, 0.5);
         storage[0,1] = new Pokemon("Eevee", "Normal", 100, 20, 20, 0.5);
@@ -153,7 +154,18 @@ class Rooms
         Console.WriteLine("Welcome to " + n + " region, Trainer " + name + ". Please feel free to explore around and catch Pokemons");
     }
     
-
+    public void spawn() {
+        Random rnd = new Random();
+        ArrayList spawns = new ArrayList();
+        for (int i=0;i<list.Length;i++) {
+            if (list[i].getRarity()) {
+                int spawning = rnd.Next(2);
+                if (spawning < list[i].getRarity())
+                {
+                    spawns.addRange(list[i]);
+                }
+            }
+    }
 
 }
 
@@ -198,6 +210,11 @@ class Pokemon
     public bool getStatus()
     {
         return alive;
+    }
+
+    public double getRarity() 
+    {
+        return rarity;
     }
 
 }
