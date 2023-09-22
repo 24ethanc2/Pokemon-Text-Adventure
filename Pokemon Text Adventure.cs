@@ -50,61 +50,61 @@ class Rooms
     private string name;
     private Pokemon[,] storage;
     private Pokemon[] list;
+    
     public Rooms(string n, int x)
-    {   
+    {
         name = n;
         storage = new Pokemon[9,5];
-        storage[0,0] = new Pokemon("Pikachu", "Electric", 100, 20, 20, 0.5);
-        storage[0,1] = new Pokemon("Eevee", "Normal", 100, 20, 20, 0.5);
-        storage[0,2] = new Pokemon("Dratini", "Dragon", 120, 30, 30, 0.25);
-        storage[0,3] = new Pokemon("Magikarp", "Water", 100, 20, 20, 0.5);
-        storage[0,4] = new Pokemon("Mewtwo", "Psychic", 150, 40, 35, 0.05);
-        storage[1,0] = new Pokemon("Wooper", "Water", 100, 20, 20, 0.5);
-        storage[1,1] = new Pokemon("Larvitar", "Rock", 120, 30, 30, 0.25);
-        storage[1,2] = new Pokemon("Mareep", "Electric", 100, 20, 20, 0.5);    
-        storage[1,3] = new Pokemon("Houndour", "Dark", 100, 20, 20, 0.5);
-        storage[1,4] = new Pokemon("Ho-oh", "Flying", 150, 40, 35, 0.05);
-        storage[2,0] = new Pokemon("Ralts", "Psychic", 100, 20, 20, 0.5);
-        storage[2,1] = new Pokemon("Slakoth", "Normal", 100, 20, 20, 0.5);
-        storage[2,2] = new Pokemon("Beldum", "Steel", 120, 30, 30, 0.25);
-        storage[2,3] = new Pokemon("Wailmer", "Water", 100, 20, 20, 0.5);
-        storage[2,4] = new Pokemon("Rayquaza", "Dragon", 150, 40, 35, 0.05);
-        storage[3,0] = new Pokemon("Starly", "Flying", 100, 20, 20, 0.5);
-        storage[3,1] = new Pokemon("Riolu", "Fighting", 100, 20, 20, 0.5);
-        storage[3,2] = new Pokemon("Gabite", "Dragon", 120, 30, 30, 0.25);
-        storage[3,3] = new Pokemon("Munchlax", "Normal", 100, 20, 20, 0.5);
-        storage[3,4] = new Pokemon("Dialga", "Steel", 150, 40, 35, 0.05);
-        storage[4,0] = new Pokemon("Axew", "Dragon", 100, 20, 20, 0.5);
-        storage[4,1] = new Pokemon("Litwick", "Ghost", 100, 20, 20, 0.5);
-        storage[4,2] = new Pokemon("Zorua", "Dark", 100, 20, 20, 0.5);
-        storage[4,3] = new Pokemon("Pawniard", "Dark", 100, 20, 20, 0.5);
-        storage[4,4] = new Pokemon("Kyurem", "Dragon", 150, 40, 35, 0.05);
-        storage[5,0] = new Pokemon("Honedge", "Steel", 100, 20, 20, 0.5);
-        storage[5,1] = new Pokemon("Froakie", "Water", 100, 20, 20, 0.5);
-        storage[5,2] = new Pokemon("Fletchling", "Flying", 100, 20, 20, 0.5);
-        storage[5,3] = new Pokemon("Gloomy", "Dragon", 120, 30, 30, 0.25);
-        storage[5,4] = new Pokemon("Zygarde", "Dragon", 150, 40, 35, 0.05);
-        storage[6,0] = new Pokemon("Litten", "Fire", 100, 20, 20, 0.5);
-        storage[6,1] = new Pokemon("Rockruff", "Rock", 100, 20, 20, 0.5);
-        storage[6,2] = new Pokemon("Mimikyu", "Ghost", 100, 20, 20, 0.5);
-        storage[6,3] = new Pokemon("Jangmo-o", "Fighting", 120, 30, 30, 0.25);
-        storage[6,4] = new Pokemon("Necrozma", "Psychic", 150, 40, 35, 0.05);
-        storage[7,0] = new Pokemon("Yamper", "Electric", 100, 20, 20, 0.5);
-        storage[7,1] = new Pokemon("Wooloo", "Normal", 100, 20, 20, 0.5);
-        storage[7,2] = new Pokemon("Dreepy", "Ghost", 120, 30, 30, 0.25);
-        storage[7,3] = new Pokemon("Dracovish", "Dragon", 100, 20, 20, 0.5);
-        storage[7,4] = new Pokemon("Eternatus", "Poison", 150, 40, 35, 0.05);
-        storage[8,0] = new Pokemon("Pawmi", "Electric", 100, 20, 20, 0.5);
-        storage[8,1] = new Pokemon("Charcadet", "Fire", 100, 20, 20, 0.5);
-        storage[8,2] = new Pokemon("Frigibax", "Ice", 120, 30, 30, 0.25);
-        storage[8,3] = new Pokemon("Finizen", "Water", 100, 20, 20, 0.5);
-        storage[8,4] = new Pokemon("Miraidon", "Electric", 150, 40, 35, 0.05);
+        storage[0,0] = new Pokemon("Pikachu", "Electric", 100, 20, 20, 0.5, new string[2] {"Raichu", null});
+        storage[0,1] = new Pokemon("Eevee", "Normal", 100, 20, 20, 0.5, new string[2] {"Leafeon", null});
+        storage[0,2] = new Pokemon("Dratini", "Dragon", 120, 30, 30, 0.25, new string[2] {"Dragonair", "Dragonite"});
+        storage[0,3] = new Pokemon("Magikarp", "Water", 100, 20, 20, 0.5, new string[2] {"Gyarados", null});
+        storage[0,4] = new Pokemon("Mewtwo", "Psychic", 150, 40, 35, 0.05, new string[2] {null, null});
+        storage[1,0] = new Pokemon("Wooper", "Water", 100, 20, 20, 0.5, new string[2] {"Quagsire", null});
+        storage[1,1] = new Pokemon("Larvitar", "Rock", 120, 30, 30, 0.25, new string[2] {"Pupitar", "Tyranitar"});
+        storage[1,2] = new Pokemon("Mareep", "Electric", 100, 20, 20, 0.5, new string[2] {"Flaaffy", "Ampharos"});    
+        storage[1,3] = new Pokemon("Houndour", "Dark", 100, 20, 20, 0.5, new string[2] {"Houndoom", null});
+        storage[1,4] = new Pokemon("Ho-oh", "Flying", 150, 40, 35, 0.05, new string[2] {null, null});
+        storage[2,0] = new Pokemon("Ralts", "Psychic", 100, 20, 20, 0.5, new string[2] {"Kirlia", "Gardevoir"});
+        storage[2,1] = new Pokemon("Slakoth", "Normal", 100, 20, 20, 0.5, new string[2] {"Vigoroth", "Slaking"});
+        storage[2,2] = new Pokemon("Beldum", "Steel", 120, 30, 30, 0.25, new string[2] {"Metang", "Metagross"});
+        storage[2,3] = new Pokemon("Wailmer", "Water", 100, 20, 20, 0.5, new string[2] {"Wailord", null});
+        storage[2,4] = new Pokemon("Rayquaza", "Dragon", 150, 40, 35, 0.05, new string[2] {null, null});
+        storage[3,0] = new Pokemon("Starly", "Flying", 100, 20, 20, 0.5, new string[2] {"Staravia", "Staraptor"});
+        storage[3,1] = new Pokemon("Riolu", "Fighting", 100, 20, 20, 0.5, new string[2] {"Lucario", null});
+        storage[3,2] = new Pokemon("Gible", "Dragon", 120, 30, 30, 0.25, new string[2] {"Gabite", "Garchomp"});
+        storage[3,3] = new Pokemon("Munchlax", "Normal", 100, 20, 20, 0.5, new string[2] {"Snorlax", null});
+        storage[3,4] = new Pokemon("Dialga", "Steel", 150, 40, 35, 0.05, new string[2] {null, null});
+        storage[4,0] = new Pokemon("Axew", "Dragon", 100, 20, 20, 0.5, new string[2] {"Fraxure", "Haxorus"});
+        storage[4,1] = new Pokemon("Litwick", "Ghost", 100, 20, 20, 0.5, new string[2] {"Lampent", "Chandelure"});
+        storage[4,2] = new Pokemon("Zorua", "Dark", 100, 20, 20, 0.5, new string[2] {"Zoroark", null});
+        storage[4,3] = new Pokemon("Pawniard", "Dark", 100, 20, 20, 0.5, new string[2] {"Bisharp", "Kingambit"});
+        storage[4,4] = new Pokemon("Kyurem", "Dragon", 150, 40, 35, 0.05, new string[2] {null, null});
+        storage[5,0] = new Pokemon("Honedge", "Steel", 100, 20, 20, 0.5, new string[2] {"Doublade", "Aegislash"});
+        storage[5,1] = new Pokemon("Froakie", "Water", 100, 20, 20, 0.5, new string[2] {"Frogadier", "Greninja"});
+        storage[5,2] = new Pokemon("Fletchling", "Flying", 100, 20, 20, 0.5, new string[2] {"Fletchinder", "Talonflame"});
+        storage[5,3] = new Pokemon("Goomy", "Dragon", 120, 30, 30, 0.25, new string[2] {"Sliggoo", "Goodra"});
+        storage[5,4] = new Pokemon("Zygarde", "Dragon", 150, 40, 35, 0.05, new string[2] {null, null});
+        storage[6,0] = new Pokemon("Litten", "Fire", 100, 20, 20, 0.5, new string[2] {"Torracat", "Incineroar"});
+        storage[6,1] = new Pokemon("Rockruff", "Rock", 100, 20, 20, 0.5, new string[2] {"Lycanroc", null});
+        storage[6,2] = new Pokemon("Mimikyu", "Ghost", 100, 20, 20, 0.5, new string[2] {null, null});
+        storage[6,3] = new Pokemon("Jangmo-o", "Fighting", 120, 30, 30, 0.25, new string[2] {"Hakamo-o", "Kommo-o"});
+        storage[6,4] = new Pokemon("Necrozma", "Psychic", 150, 40, 35, 0.05, new string[2] {null, null});
+        storage[7,0] = new Pokemon("Yamper", "Electric", 100, 20, 20, 0.5, new string[2] {"Boltund", null});
+        storage[7,1] = new Pokemon("Wooloo", "Normal", 100, 20, 20, 0.5, new string[2] {"Dubwool", null});
+        storage[7,2] = new Pokemon("Dreepy", "Ghost", 120, 30, 30, 0.25, new string[2] {"Drakloak", "Dragapult"});
+        storage[7,3] = new Pokemon("Dracovish", "Dragon", 100, 20, 20, 0.5, new string[2] {null, null});
+        storage[7,4] = new Pokemon("Eternatus", "Poison", 150, 40, 35, 0.05, new string[2] {null, null});
+        storage[8,0] = new Pokemon("Pawmi", "Electric", 100, 20, 20, 0.5, new string[2] {"Pawmo", "Pawmot"});
+        storage[8,1] = new Pokemon("Charcadet", "Fire", 100, 20, 20, 0.5, new string[2] {"Armarouge", null});
+        storage[8,2] = new Pokemon("Frigibax", "Ice", 120, 30, 30, 0.25, new string[2] {"Arctibax", "Baxcalibur"});
+        storage[8,3] = new Pokemon("Finizen", "Water", 100, 20, 20, 0.5, new string[2] {"Palafin", null});
+        storage[8,4] = new Pokemon("Miraidon", "Electric", 150, 40, 35, 0.05, new string[2] {null, null});
         list = new Pokemon[5];
         for(int i = 0; i < 5; i++)
         {
             list[i] = storage[x,i];
         }
-        
     }
 
     public string getRoomName()
@@ -166,9 +166,8 @@ class Rooms
         }
         return spawns;
     }
-    return null;
 }
-
+                                                                           
 class Pokemon
 {
     private string name;
@@ -178,8 +177,9 @@ class Pokemon
     private int spd;
     private bool alive;
     private double rarity;
-    public Pokemon(string n, string t, int h, int a, int s, double e){
-        name = n; type = t; hp = h; atk = a; spd = s; alive = true; rarity = e;
+    private string[] evo;
+    public Pokemon(string n, string t, int h, int a, int s, double e, string[] p){
+        name = n; type = t; hp = h; atk = a; spd = s; alive = true; rarity = e;evo = p;
     }
 
     public string getName()
@@ -217,6 +217,10 @@ class Pokemon
         return rarity;
     }
 
+    public string[] getEvolutions() 
+    {
+        return evo;
+    }
 }
 
 class grass
