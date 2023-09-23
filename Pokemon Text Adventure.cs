@@ -178,9 +178,23 @@ class Pokemon
     private bool alive;
     private double rarity;
     private string[] evo;
+    private bool evol1;
+    private bool evol2;
+    private bool evolved1;
+    private bool evolved2;
     public Pokemon(string n, string t, int h, int a, int s, double e, string[] p){
-        name = n; type = t; hp = h; atk = a; spd = s; alive = true; rarity = e;evo = p;
+        name = n; type = t; hp = h; atk = a; spd = s; alive = true; rarity = e;evo = p; evol1 = false; evol2 = false; evolved1 = false; evolved 2 = false;
+        if(evo[0]!= null)
+        {
+            evol1 = true;
+        }
+        if(evo[1]!= null)
+        {
+            evol2 = true;
+        }
+        
     }
+
 
     public string getName()
     {
@@ -220,6 +234,18 @@ class Pokemon
     public string[] getEvolutions() 
     {
         return evo;
+    }
+
+    public void firstEvo()
+    {
+        evolved1 = true;
+        name = evo[0];
+    }
+
+    public void secondEvo()
+    {
+        evolved2 = true;
+        name = evo[1];
     }
 }
 
