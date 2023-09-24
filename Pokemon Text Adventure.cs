@@ -249,11 +249,36 @@ class Pokemon
     }
 }
 
-class grass
-{
+public Class player(){
+  private Rooms[][] map = {{new Rooms("Kanto"), new Rooms("Hoenn"), new Rooms("Johto")}, {new Rooms("Alola"), new Rooms("Sinnoh"), new Rooms("Galar")},{new Rooms("Unova"), new Rooms("Kalos"), new Rooms("Paldea")}};
 
-
-
-
-
+  public player(int x, int y){
+    map[x][y].setPlayer(True);
+  }
+  public void move(){
+    for (int r = 0; r < 3; r++){
+      for(int c = 0; c<4; c++){
+        if(map[r][c].getPlayer() == true){
+          //ask user north south east west
+          string input = Console.readline("Enter direction::");
+          if(input.equals("north") && r>0){
+            map[r][c].setPlayer(false);
+            map[r-1][c].setPlayer(true);
+          }
+          if(input.equals("south") && r<2){
+            map[r][c].setPlayer(false);
+            map[r+1][c].setPlayer(true);
+          }
+          if(input.equals("east") && c<2){
+            map[r][c].setPlayer(false);
+            map[r][c+1].setPlayer(true);
+          }
+          if(input.equals("west") && c>0){
+            map[r][c].setPlayer(false);
+            map[r][c-1].setPlayer(true);
+          }
+        }
+      }
+    }
+  }
 }
