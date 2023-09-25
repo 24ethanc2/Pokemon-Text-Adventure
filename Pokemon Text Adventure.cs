@@ -274,22 +274,23 @@ public class player{
       for(int c = 0; c<4; c++){
         if(map[r, c].getPlayer() == true){
           //ask user north south east west
-          string input = Console.ReadLine("Enter direction::");
-          if(input.equals("north") && r>0){
-            map[r][c].setPlayer(false);
-            map[r-1][c].setPlayer(true);
+          Console.WriteLine("Enter direction::");
+          string input = Console.ReadLine();
+          if(input.Equals("north") && r>0){
+            map[r,c].setPlayer(false);
+            map[r-1, c].setPlayer(true);
           }
-          if(input.equals("south") && r<2){
-            map[r][c].setPlayer(false);
-            map[r+1][c].setPlayer(true);
+          if(input.Equals("south") && r<2){
+            map[r, c].setPlayer(false);
+            map[r+1, c].setPlayer(true);
           }
-          if(input.equals("east") && c<2){
-            map[r][c].setPlayer(false);
-            map[r][c+1].setPlayer(true);
+          if(input.Equals("east") && c<2){
+            map[r, c].setPlayer(false);
+            map[r, c+1].setPlayer(true);
           }
-          if(input.equals("west") && c>0){
-            map[r][c].setPlayer(false);
-            map[r][c-1].setPlayer(true);
+          if(input.Equals("west") && c>0){
+            map[r, c].setPlayer(false);
+            map[r, c-1].setPlayer(true);
           }
         }
       }
@@ -297,6 +298,6 @@ public class player{
   }
 public string roomName()
 {
-    return map[xLoc,yLoc];
+    return map[xLoc,yLoc].getRoomName();
 }
 }
