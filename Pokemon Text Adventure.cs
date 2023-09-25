@@ -7,6 +7,8 @@ class Runner
         Rooms[,] roomList = new Rooms[3,3];
         String name;
         String ans;
+        String spawnedPoke;
+        int invNum = 0;
         player trainer = new player(0,0);
         roomList[0,0] = new Rooms("Kanto", 0); roomList[0,1] = new Rooms("Hoenn", 2); roomList[0,2] = new Rooms("Alola", 6);
         roomList[1,0] = new Rooms("Johto", 1); roomList[1,1] = new Rooms("Sinnoh", 3); roomList[1,2] = new Rooms("Galar", 7);
@@ -28,22 +30,26 @@ class Runner
             if(choice == 1)
             {
                 inventory[0] = new Pokemon("Bulbasaur", "Grass", 100, 20, 20, 1, new string[2] {"Ivysaur", "Venasaur"});
+                invNum++;
                 break;
             }
             else if(choice == 2)
             { 
                 inventory[0] = new Pokemon("Charmander", "Fire", 100, 20, 20, 1, new string[2] {"Charmeleon", "Charizard"});
+                invNum++;
                 break;
             }
             else if(choice == 3)
             {
                 inventory[0] = new Pokemon("Squirtle", "Water", 100, 20, 20, 1, new string[2] {"Wartortle", "Blastoise"});
+                invNum++;
                 break;
             }
             else{
                 Console.WriteLine("Invalid Choice, Please type a Number");
             }
         }
+            Console.WriteLine("You've chosen " + inventory[0].getName() + "!");
             Console.WriteLine("Great Choice");
             Console.WriteLine("When you exit the lab, you found yourself in the blooming region of Kanto area!");
             Console.WriteLine("You see a lot of pokemon roaming around in the bushes");
@@ -51,31 +57,59 @@ class Runner
             Console.WriteLine("On your south side, you see another sign \"Johto Region up ahead!\"");
             Console.WriteLine("What do you want to do next? (If you need to look at the list of commands, type \"help\")");
             ans = Console.ReadLine().ToLower();
-            if(ans.Equals("go"))
+            while(true)
             {
-                while(true){
-                Console.WriteLine("Where do you want to go");
-                ans = Console.ReadLine();
-                if(ans.Equals("south"))
+            if(ans.Equals("bushes"))
+            {
+                spawnedPoke = roomList[0,0].spawn();
+                if(spawnedPoke.Equals(""))
                 {
-                    break;
-                }
-                else if(ans.Equals("east"))
-                {
-                    break;
-                }
-                else if(ans.Equals("bushes"))
-                {
-                    break;
+                    Console.WriteLine("No Pokemon Spawned! How Unlucky!");
                 }
                 else
                 {
-                    Console.WriteLine("That direction is not valid");
+                Console.WriteLine("You see these pokemons: " + spawnedPoke);
+                String[] spawnedList = spawnedPoke.Split(" ");
+                Console.WriteLine("What do you want to do next?");
+                ans = Console.ReadLine().ToLower();
+                string[] ansString = ans.Split(" ");
+                for(int i = 0; i < spawnedList.Length; i++)
+                {
+                    if(ansString[1].Equals(spawnedList[i].ToLower()))
+                    {
+                        if(invNum < 6)
+                        {
+                            Pokemon newPoke = roomList[0,0].Catch(ansString[1]);
+                            inventory[invNum] = newPoke;
+                            Console.WriteLine("You've caught a " + inventory[invNum].getName() + "!");
+                            invNum++;
+                            break;
+                        }
+                        else
+                        {
+                            Console.WriteLine("Your inventory is full");
+                            break;
+                        }
+                    }
                 }
                 }
+                Console.WriteLine("Where do you want to go next");
+                trainer.move();
+                break;
             }
-        }
+            else if(ans.Equals("go"))
+            {
+                trainer.move();
+                break;
+            }
+            else
+            {
+                Console.WriteLine("Invalid Action, please use \"help\" if you're unsure what to do");
+            }
+            }
+            Console.WriteLine("You've traveled to the " + trainer.roomName()+ " Region!");
     }
+}
 
 class Rooms
 {
@@ -150,13 +184,12 @@ class Rooms
     {
         for (int i = 0;i < 9; i++) {
             for (int j = 0;j < 5; j++) {
-                if ((storage[i,j].getName()).Equals(name)) {
+                if ((storage[i,j].getName().ToLower()).Equals(name)) {
                     return storage[i,j];
                 }
             }
         }
-        return null;
-        
+        return null;       
     }
 
     public void help()
@@ -193,7 +226,7 @@ class Rooms
         string spawns = "";
         for (int i=0;i<list.Length;i++) {
             double spawning = rnd.NextDouble();
-            if (spawning > list[i].getRarity())
+            if (spawning < list[i].getRarity())
             {
                 spawns += list[i].getName() + " ";
             }
@@ -208,6 +241,7 @@ class Rooms
     public bool getPlayer(){
         return player;
     }
+
 }
                                                                            
 class Pokemon
@@ -292,10 +326,13 @@ class Pokemon
 }
 
 public class player{
-  private Rooms[,] map = {{new Rooms("Kanto", 0), new Rooms("Hoenn", 2), new Rooms("Johto",1)}, {new Rooms("Alola", 6), new Rooms("Sinnoh", 3), new Rooms("Galar", 7)},{new Rooms("Unova", 4), new Rooms("Kalos", 5), new Rooms("Paldea", 8)}};
+  private Rooms[,] map = new Rooms[3,3];
   private int xLoc;
   private int yLoc;
   public player(int x, int y){
+    map[0,0] = new Rooms("Kanto", 0); map[0,1] = new Rooms("Hoenn", 2); map[0,2] = new Rooms("Alola", 6);
+        map[1,0] = new Rooms("Johto", 1); map[1,1] = new Rooms("Sinnoh", 3); map[1,2] = new Rooms("Galar", 7);
+        map[2,0] = new Rooms("Unova", 4); map[2,1] = new Rooms("Kalos", 5); map[2,2] = new Rooms("Paldea", 8);
     map[x,y].setPlayer(true);
     xLoc = x;
     yLoc = y;
@@ -306,23 +343,36 @@ public class player{
         if(map[r, c].getPlayer() == true){
           //ask user north south east west
           Console.WriteLine("Enter direction::");
-          string input = Console.ReadLine();
+          string input = Console.ReadLine().ToLower();
           if(input.Equals("north") && r>0){
             map[r,c].setPlayer(false);
             map[r-1, c].setPlayer(true);
+            xLoc = r-1;
+            return;
           }
-          if(input.Equals("south") && r<2){
+          else if(input.Equals("south") && r<2){
             map[r, c].setPlayer(false);
             map[r+1, c].setPlayer(true);
+            xLoc = r+1;
+            return;
           }
-          if(input.Equals("east") && c<2){
+          else if(input.Equals("east") && c<2){
             map[r, c].setPlayer(false);
             map[r, c+1].setPlayer(true);
+            yLoc = c+1;
+            return;
           }
-          if(input.Equals("west") && c>0){
+          else if(input.Equals("west") && c>0){
             map[r, c].setPlayer(false);
             map[r, c-1].setPlayer(true);
+            yLoc = c-1;
+            return;
           }
+         else{
+            Console.WriteLine("Direction is not valid");
+            move();
+            return;
+         }
         }
       }
     }
