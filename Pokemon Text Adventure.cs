@@ -6,6 +6,7 @@ class Runner
         Pokemon[] inventory = new Pokemon[6];
         Rooms[,] roomList = new Rooms[3,3];
         String name;
+        Player trainer = new Player(0,0);
         roomList[0,0] = new Rooms("Kanto", 0); roomList[0,1] = new Rooms("Hoenn", 2); roomList[0,2] = new Rooms("Alola", 6);
         roomList[1,0] = new Rooms("Johto", 1); roomList[1,1] = new Rooms("Sinnoh", 3); roomList[1,2] = new Rooms("Galar", 7);
         roomList[2,0] = new Rooms("Unova", 4); roomList[2,1] = new Rooms("Kalos", 5); roomList[2,2] = new Rooms("Paldea", 8);
@@ -250,10 +251,13 @@ class Pokemon
 }
 
 public Class player(){
-  private Rooms[][] map = {{new Rooms("Kanto"), new Rooms("Hoenn"), new Rooms("Johto")}, {new Rooms("Alola"), new Rooms("Sinnoh"), new Rooms("Galar")},{new Rooms("Unova"), new Rooms("Kalos"), new Rooms("Paldea")}};
-
+  private Rooms[,] map = {{new Rooms("Kanto"), new Rooms("Hoenn"), new Rooms("Johto")}, {new Rooms("Alola"), new Rooms("Sinnoh"), new Rooms("Galar")},{new Rooms("Unova"), new Rooms("Kalos"), new Rooms("Paldea")}};
+  private xLoc;
+  private yLoc;
   public player(int x, int y){
     map[x][y].setPlayer(True);
+    xLoc = x;
+    yLoc = y;
   }
   public void move(){
     for (int r = 0; r < 3; r++){
@@ -281,4 +285,8 @@ public Class player(){
       }
     }
   }
+public string roomName()
+{
+    return map[xLoc,yLoc];
+}
 }
