@@ -6,6 +6,7 @@ class Runner
         Pokemon[] inventory = new Pokemon[6];
         Rooms[,] roomList = new Rooms[3,3];
         String name;
+        String ans;
         player trainer = new player(0,0);
         roomList[0,0] = new Rooms("Kanto", 0); roomList[0,1] = new Rooms("Hoenn", 2); roomList[0,2] = new Rooms("Alola", 6);
         roomList[1,0] = new Rooms("Johto", 1); roomList[1,1] = new Rooms("Sinnoh", 3); roomList[1,2] = new Rooms("Galar", 7);
@@ -43,8 +44,38 @@ class Runner
                 Console.WriteLine("Invalid Choice, Please type a Number");
             }
         }
+            Console.WriteLine("Great Choice");
+            Console.WriteLine("When you exit the lab, you found yourself in the blooming region of Kanto area!");
+            Console.WriteLine("You see a lot of pokemon roaming around in the bushes");
+            Console.WriteLine("On your east side, you see a sign that reads \"Hoenn Region up ahead!\"");
+            Console.WriteLine("On your south side, you see another sign \"Johto Region up ahead!\"");
+            Console.WriteLine("What do you want to do next? (If you need to look at the list of commands, type \"help\")");
+            ans = Console.ReadLine().ToLower();
+            if(ans.Equals("go"))
+            {
+                while(true){
+                Console.WriteLine("Where do you want to go");
+                ans = Console.ReadLine();
+                if(ans.Equals("south"))
+                {
+                    break;
+                }
+                else if(ans.Equals("east"))
+                {
+                    break;
+                }
+                else if(ans.Equals("bushes"))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("That direction is not valid");
+                }
+                }
+            }
+        }
     }
-}
 
 class Rooms
 {
