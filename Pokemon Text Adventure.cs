@@ -51,9 +51,11 @@ class Rooms
     private string name;
     private Pokemon[,] storage;
     private Pokemon[] list;
+    private bool player;
     
     public Rooms(string n, int x)
     {
+        player = false;
         name = n;
         storage = new Pokemon[9,5];
         storage[0,0] = new Pokemon("Pikachu", "Electric", 100, 20, 20, 0.5, new string[2] {"Raichu", null});
@@ -167,6 +169,14 @@ class Rooms
         }
         return spawns;
     }
+    
+    public void setPlayer(bool x){
+        player = x;
+    }
+    
+    public bool getPlayer(){
+        return player;
+    }
 }
                                                                            
 class Pokemon
@@ -251,20 +261,20 @@ class Pokemon
 }
 
 public class player{
-  private Rooms[,] map = {{new Rooms("Kanto"), new Rooms("Hoenn"), new Rooms("Johto")}, {new Rooms("Alola"), new Rooms("Sinnoh"), new Rooms("Galar")},{new Rooms("Unova"), new Rooms("Kalos"), new Rooms("Paldea")}};
+  private Rooms[,] map = {{new Rooms("Kanto", 0), new Rooms("Hoenn", 2), new Rooms("Johto",1)}, {new Rooms("Alola", 6), new Rooms("Sinnoh", 3), new Rooms("Galar", 7)},{new Rooms("Unova", 4), new Rooms("Kalos", 5), new Rooms("Paldea", 8)}};
   private int xLoc;
   private int yLoc;
   public player(int x, int y){
-    map[x][y].setPlayer(True);
+    map[x,y].setPlayer(true);
     xLoc = x;
     yLoc = y;
   }
   public void move(){
     for (int r = 0; r < 3; r++){
       for(int c = 0; c<4; c++){
-        if(map[r][c].getPlayer() == true){
+        if(map[r, c].getPlayer() == true){
           //ask user north south east west
-          string input = Console.readline("Enter direction::");
+          string input = Console.ReadLine("Enter direction::");
           if(input.equals("north") && r>0){
             map[r][c].setPlayer(false);
             map[r-1][c].setPlayer(true);
