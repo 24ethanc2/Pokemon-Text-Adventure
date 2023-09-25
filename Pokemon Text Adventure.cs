@@ -6,7 +6,7 @@ class Runner
         Pokemon[] inventory = new Pokemon[6];
         Rooms[,] roomList = new Rooms[3,3];
         String name;
-        Player trainer = new Player(0,0);
+        player trainer = new player(0,0);
         roomList[0,0] = new Rooms("Kanto", 0); roomList[0,1] = new Rooms("Hoenn", 2); roomList[0,2] = new Rooms("Alola", 6);
         roomList[1,0] = new Rooms("Johto", 1); roomList[1,1] = new Rooms("Sinnoh", 3); roomList[1,2] = new Rooms("Galar", 7);
         roomList[2,0] = new Rooms("Unova", 4); roomList[2,1] = new Rooms("Kalos", 5); roomList[2,2] = new Rooms("Paldea", 8);
@@ -26,17 +26,17 @@ class Runner
             int choice = int.Parse(Console.ReadLine());
             if(choice == 1)
             {
-                inventory[0] = new Pokemon("Bulbasaur", "Grass", 100, 20, 20, 1);
+                inventory[0] = new Pokemon("Bulbasaur", "Grass", 100, 20, 20, 1, new string[2] {"Ivysaur", "Venasaur"});
                 break;
             }
             else if(choice == 2)
             { 
-                inventory[0] = new Pokemon("Charmander", "Fire", 100, 20, 20, 1);
+                inventory[0] = new Pokemon("Charmander", "Fire", 100, 20, 20, 1, new string[2] {"Charmeleon", "Charizard"});
                 break;
             }
             else if(choice == 3)
             {
-                inventory[0] = new Pokemon("Squirtle", "Water", 100, 20, 20, 1);
+                inventory[0] = new Pokemon("Squirtle", "Water", 100, 20, 20, 1, new string[2] {"Wartortle", "Blastoise"});
                 break;
             }
             else{
@@ -184,7 +184,7 @@ class Pokemon
     private bool evolved1;
     private bool evolved2;
     public Pokemon(string n, string t, int h, int a, int s, double e, string[] p){
-        name = n; type = t; hp = h; atk = a; spd = s; alive = true; rarity = e;evo = p; evol1 = false; evol2 = false; evolved1 = false; evolved 2 = false;
+        name = n; type = t; hp = h; atk = a; spd = s; alive = true; rarity = e;evo = p; evol1 = false; evol2 = false; evolved1 = false; evolved2 = false;
         if(evo[0]!= null)
         {
             evol1 = true;
@@ -250,10 +250,10 @@ class Pokemon
     }
 }
 
-public Class player(){
+public class player{
   private Rooms[,] map = {{new Rooms("Kanto"), new Rooms("Hoenn"), new Rooms("Johto")}, {new Rooms("Alola"), new Rooms("Sinnoh"), new Rooms("Galar")},{new Rooms("Unova"), new Rooms("Kalos"), new Rooms("Paldea")}};
-  private xLoc;
-  private yLoc;
+  private int xLoc;
+  private int yLoc;
   public player(int x, int y){
     map[x][y].setPlayer(True);
     xLoc = x;
