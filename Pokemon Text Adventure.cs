@@ -124,12 +124,12 @@ class Runner
             while(inventory[i].getHp()>0){
                 Console.WriteLine("Your " + inventory[i].getName() + " is chosen to battle!");
                 Random random = new Random();
-                int randomNumber = random.Next(25, 65);
+                int randomNumber = random.Next(25, 90);
                 Console.WriteLine("Arceus deals " + randomNumber);
                 inventory[i].setHp(randomNumber);
                 Console.WriteLine(inventory[i].getName() + " has the remaining health of " + inventory[i].getHp());
                 if(inventory[i].getHp()<0){
-                    Console.WriteLine("Oh no..." + inventory[i].getName() + " fainted!");
+                    Console.WriteLine("Oh no..." + inventory[i].getName() + " died!");
                     break;
                 }
                 else{
@@ -144,7 +144,6 @@ class Runner
                         }
                     }
                 }
-                
             }
             if(arceusHp < 0){
                 win = true;
