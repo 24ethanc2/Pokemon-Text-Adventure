@@ -78,12 +78,12 @@ class Runner
                                                Console.WriteLine(stats);
                                            }
                                             invNum++;
-                                        break;
-                                    }
-                                    else{
+                                        if(invNum == 6)
+                                        {
                                         Console.WriteLine("Your inventory is full");
                                         Console.WriteLine("You are now going to battle Arceus");
                                         finalStage = true;
+                                        }
                                         break;
                                     }
                                 }
@@ -91,8 +91,6 @@ class Runner
                         }
                     }
                     if(finalStage == false){
-                        
-                    
                     Console.WriteLine("Enter direction::");
                     string input = Console.ReadLine().ToLower();
                     test = false;
@@ -126,7 +124,7 @@ class Runner
             while(inventory[i].getHp()>0){
                 Console.WriteLine("Your " + inventory[i].getName() + " is chosen to battle!");
                 Random random = new Random();
-                int randomNumber = random.Next(25, 90);
+                int randomNumber = random.Next(25, 65);
                 Console.WriteLine("Arceus deals " + randomNumber);
                 inventory[i].setHp(randomNumber);
                 Console.WriteLine(inventory[i].getName() + " has the remaining health of " + inventory[i].getHp());
