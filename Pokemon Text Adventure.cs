@@ -23,91 +23,130 @@ class Runner
         Console.WriteLine("Welcome, Trainer " + name + ". In this game, you will be able to explore all 9 regions of Pokemon");    
         Console.WriteLine("You will have to catch pokemons in order to beat the final boss: Arceus himself");
         Console.WriteLine("But first, let's get you your first starter pokemon");
-        while(true)
+        Console.WriteLine("Please Choose your first starter:  \n| 1: Bulbasaur | 2: Charmander | 3: Squirtle | ");
+        int choice = int.Parse(Console.ReadLine());
+        if(choice == 1)
         {
-            Console.WriteLine("Please Choose your first starter:  \n| 1: Bulbasaur | 2: Charmander | 3: Squirtle | ");
-            int choice = int.Parse(Console.ReadLine());
-            if(choice == 1)
-            {
-                inventory[0] = new Pokemon("Bulbasaur", "Grass", 100, 20, 20, 1, new string[2] {"Ivysaur", "Venasaur"});
+            inventory[0] = new Pokemon("Bulbasaur", "Grass", 100, 20, 20, 1, new string[2] {"Ivysaur", "Venasaur"});
                 invNum++;
-                break;
-            }
-            else if(choice == 2)
-            { 
-                inventory[0] = new Pokemon("Charmander", "Fire", 100, 20, 20, 1, new string[2] {"Charmeleon", "Charizard"});
-                invNum++;
-                break;
-            }
-            else if(choice == 3)
-            {
-                inventory[0] = new Pokemon("Squirtle", "Water", 100, 20, 20, 1, new string[2] {"Wartortle", "Blastoise"});
-                invNum++;
-                break;
-            }
-            else{
-                Console.WriteLine("Invalid Choice, Please type a Number");
-            }
         }
-            Console.WriteLine("You've chosen " + inventory[0].getName() + "!");
-            Console.WriteLine("Great Choice");
-            Console.WriteLine("When you exit the lab, you found yourself in the blooming region of Kanto area!");
-            Console.WriteLine("You see a lot of pokemon roaming around in the bushes");
-            Console.WriteLine("On your east side, you see a sign that reads \"Hoenn Region up ahead!\"");
-            Console.WriteLine("On your south side, you see another sign \"Johto Region up ahead!\"");
-            Console.WriteLine("What do you want to do next? (If you need to look at the list of commands, type \"help\")");
-            ans = Console.ReadLine().ToLower();
-            while(true)
-            {
-            if(ans.Equals("bushes"))
-            {
-                spawnedPoke = roomList[0,0].spawn();
-                if(spawnedPoke.Equals(""))
-                {
-                    Console.WriteLine("No Pokemon Spawned! How Unlucky!");
-                }
-                else
-                {
-                Console.WriteLine("You see these pokemons: " + spawnedPoke);
-                String[] spawnedList = spawnedPoke.Split(" ");
-                Console.WriteLine("What do you want to do next?");
-                ans = Console.ReadLine().ToLower();
-                string[] ansString = ans.Split(" ");
-                for(int i = 0; i < spawnedList.Length; i++)
-                {
-                    if(ansString[1].Equals(spawnedList[i].ToLower()))
-                    {
-                        if(invNum < 6)
+        else if(choice == 2)
+        { 
+            inventory[0] = new Pokemon("Charmander", "Fire", 100, 20, 20, 1, new string[2] {"Charmeleon", "Charizard"});
+                invNum++;
+        }
+        else if(choice == 3)
+        {
+            inventory[0] = new Pokemon("Squirtle", "Water", 100, 20, 20, 1, new string[2] {"Wartortle", "Blastoise"});
+                invNum++;
+        }
+        Console.WriteLine("You've chosen " + inventory[0].getName() + "!");
+        Console.WriteLine("Great Choice");
+        roomList[0,0].setPlayer(true);
+        bool test = true;
+        bool finalStage = false;
+        while(finalStage == false){
+        for (int r = 0 ; r<3; r ++){
+            for(int c = 0; c <3 ; c++){
+                if (test == true && roomList[r,c].getPlayer() == true){
+                    Console.WriteLine("You are in " + roomList[r,c].getRoomName());
+                    Console.WriteLine("There is some bushes, type bushes to go in to explore!!");
+                    if (Console.ReadLine() == "bushes"){
+                        spawnedPoke = roomList[r,c].spawn();
+                        if(spawnedPoke.Equals(""))
                         {
-                            Pokemon newPoke = roomList[0,0].Catch(ansString[1]);
-                            inventory[invNum] = newPoke;
-                            Console.WriteLine("You've caught a " + inventory[invNum].getName() + "!");
-                            invNum++;
-                            break;
+                            Console.WriteLine("No Pokemon Spawned! How Unlucky!");
                         }
                         else
                         {
-                            Console.WriteLine("Your inventory is full");
+                            Console.WriteLine("You see these pokemons: " + spawnedPoke + "\n");
+                            String[] spawnedList = spawnedPoke.Split(" ");
+                            Console.WriteLine("Pick one to catch::");
+                            ans = Console.ReadLine();
+                            
+                            for(int i = 0; i < spawnedList.Length; i++){
+                                if(ans.Equals(spawnedList[i])){
+                                    if(invNum < 6){
+                                        Pokemon newPoke = roomList[r,c].Catch(ans.ToLower());
+                                        inventory[invNum] = newPoke;
+                                        Console.WriteLine("You've caught a " + inventory[invNum].getName() + "!");
+                                        invNum++;
+                                        break;
+                                    }
+                                    else{
+                                        Console.WriteLine("Your inventory is full");
+                                        Console.WriteLine("You are now going to battle Arceus");
+                                        finalStage = true;
+                                        break;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if(finalStage == false){
+                        
+                    
+                    Console.WriteLine("Enter direction::");
+                    string input = Console.ReadLine().ToLower();
+                    test = false;
+                    if(input.Equals("north") && r>0){
+                        roomList[r,c].setPlayer(false);
+                        roomList[r-1, c].setPlayer(true);
+                    }
+                    else if(input.Equals("south") && r<2){
+                        roomList[r, c].setPlayer(false);
+                        roomList[r+1, c].setPlayer(true);
+                    }
+                    else if(input.Equals("east") && c<2){
+                        roomList[r, c].setPlayer(false);
+                        roomList[r, c+1].setPlayer(true);
+                    }
+                    else if(input.Equals("west") && c>0){
+                        roomList[r, c].setPlayer(false);
+                        roomList[r, c-1].setPlayer(true);
+                    }
+                    }
+                }
+            }
+        }
+        
+        test = true;
+        }
+        bool win = false;
+        Console.WriteLine("Battle Arceus Begin!!!");
+        int arceusHp = 200;
+        for (int i = 0; i < inventory.Length; i++){
+            while(inventory[i].getHp()>0){
+                Console.WriteLine("Your " + inventory[i].getName() + " is chosen to battle!");
+                Random random = new Random();
+                int randomNumber = random.Next(25, 90);
+                Console.WriteLine("Arceus deals " + randomNumber);
+                inventory[i].setHp(randomNumber);
+                Console.WriteLine(inventory[i].getName() + " has the remaining health of " + inventory[i].getHp());
+                if(inventory[i].getHp()<0){
+                    Console.WriteLine("Oh no..." + inventory[i].getName() + " died!");
+                    break;
+                }
+                else{
+                    Console.WriteLine("Type attack to fight back");
+                    string move = Console.ReadLine();
+                    if (move.Equals("attack")){
+                        arceusHp -= inventory[i].getAtk();
+                        Console.WriteLine("Arceus health is now " + arceusHp);
+                        if(arceusHp < 0){
+                            win = true;
                             break;
                         }
                     }
                 }
-                }
-                Console.WriteLine("Where do you want to go next");
-                trainer.move();
-                break;
             }
-            else if(ans.Equals("go"))
-            {
-                trainer.move();
-                break;
-            }
-            else
-            {
-                Console.WriteLine("Invalid Action, please use \"help\" if you're unsure what to do");
-            }
-            }
-            Console.WriteLine("You've traveled to the " + trainer.roomName()+ " Region!");
+        }
+        if(win){
+            Console.WriteLine("You won!!! Congratulation!");
+        }
+        else{
+            Console.WriteLine("All your pokemon died. You lost...Good luck next time!");
+        }
     }
 }
 
@@ -271,7 +310,9 @@ class Pokemon
         
     }
 
-
+    public void setHp(int dmg){
+        hp -= dmg;
+    }
     public string getName()
     {
         return name;
