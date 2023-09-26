@@ -9,7 +9,6 @@ class Runner
         String ans;
         String spawnedPoke;
         int invNum = 0;
-        player trainer = new player(0,0);
         roomList[0,0] = new Rooms("Kanto", 0); roomList[0,1] = new Rooms("Hoenn", 2); roomList[0,2] = new Rooms("Alola", 6);
         roomList[1,0] = new Rooms("Johto", 1); roomList[1,1] = new Rooms("Sinnoh", 3); roomList[1,2] = new Rooms("Galar", 7);
         roomList[2,0] = new Rooms("Unova", 4); roomList[2,1] = new Rooms("Kalos", 5); roomList[2,2] = new Rooms("Paldea", 8);
@@ -50,7 +49,7 @@ class Runner
             for(int c = 0; c <3 ; c++){
                 if (test == true && roomList[r,c].getPlayer() == true){
                     Console.WriteLine("You are in " + roomList[r,c].getRoomName());
-                    Console.WriteLine("There is some bushes, type bushes to go in to explore!!");
+                    Console.WriteLine("There are some bushes, type bushes to go in to explore!!");
                     if (Console.ReadLine() == "bushes"){
                         spawnedPoke = roomList[r,c].spawn();
                         if(spawnedPoke.Equals(""))
@@ -62,15 +61,23 @@ class Runner
                             Console.WriteLine("You see these pokemons: " + spawnedPoke + "\n");
                             String[] spawnedList = spawnedPoke.Split(" ");
                             Console.WriteLine("Pick one to catch::");
-                            ans = Console.ReadLine();
+                            ans = Console.ReadLine().ToLower();
                             
                             for(int i = 0; i < spawnedList.Length; i++){
-                                if(ans.Equals(spawnedList[i])){
+                                if(ans.Equals(spawnedList[i].ToLower())){
                                     if(invNum < 6){
                                         Pokemon newPoke = roomList[r,c].Catch(ans.ToLower());
                                         inventory[invNum] = newPoke;
                                         Console.WriteLine("You've caught a " + inventory[invNum].getName() + "!");
-                                        invNum++;
+                                        Console.WriteLine("Do you want to inspect your new pokemon? Y/N");
+                                        ans = Console.ReadLine().ToLower();
+                                        if(ans.Equals("y"))
+                                           {
+                                               string stats = "Name: " + inventory[invNum].getName() + ",Type:  " + inventory[invNum].getType() + ", HP: " + inventory[invNum].getHp()
+                                                + ", ATK: " + inventory[invNum].getAtk() + ", SPD: " + inventory[invNum].getSpd();
+                                               Console.WriteLine(stats);
+                                           }
+                                            invNum++;
                                         break;
                                     }
                                     else{
@@ -124,7 +131,7 @@ class Runner
                 inventory[i].setHp(randomNumber);
                 Console.WriteLine(inventory[i].getName() + " has the remaining health of " + inventory[i].getHp());
                 if(inventory[i].getHp()<0){
-                    Console.WriteLine("Oh no..." + inventory[i].getName() + " died!");
+                    Console.WriteLine("Oh no..." + inventory[i].getName() + " fainted!");
                     break;
                 }
                 else{
@@ -233,10 +240,10 @@ class Rooms
 
     public void help()
     {
-        Console.WriteLine("Move ____: Move in the in the direction you specify (e.g. Move North)\n");
+        Console.WriteLine("Go ____: Move in the in the direction you specify (e.g. Move North)\n");
         Console.WriteLine("Catch ____: Catch the Pokemon you specify (e.g. Catch Pikachu)\n");
-        Console.WriteLine("Inspect ____: Inspect a Pokemon in your inventory (e.g. Inspect Pikachu)\n");
-        Console.WriteLine("Battle: Start a Battle\n");
+        //Console.WriteLine("Inspect ____: Inspect a Pokemon in your inventory (e.g. Inspect Pikachu)\n");
+        //Console.WriteLine("Battle: Start a Battle\n");
     }
 
     public string inspect(Pokemon[] arlist1, int i)
@@ -364,62 +371,4 @@ class Pokemon
         evolved2 = true;
         name = evo[1];
     }
-}
-
-public class player{
-  private Rooms[,] map = new Rooms[3,3];
-  private int xLoc;
-  private int yLoc;
-  public player(int x, int y){
-    map[0,0] = new Rooms("Kanto", 0); map[0,1] = new Rooms("Hoenn", 2); map[0,2] = new Rooms("Alola", 6);
-        map[1,0] = new Rooms("Johto", 1); map[1,1] = new Rooms("Sinnoh", 3); map[1,2] = new Rooms("Galar", 7);
-        map[2,0] = new Rooms("Unova", 4); map[2,1] = new Rooms("Kalos", 5); map[2,2] = new Rooms("Paldea", 8);
-    map[x,y].setPlayer(true);
-    xLoc = x;
-    yLoc = y;
-  }
-  public void move(){
-    for (int r = 0; r < 3; r++){
-      for(int c = 0; c<4; c++){
-        if(map[r, c].getPlayer() == true){
-          //ask user north south east west
-          Console.WriteLine("Enter direction::");
-          string input = Console.ReadLine().ToLower();
-          if(input.Equals("north") && r>0){
-            map[r,c].setPlayer(false);
-            map[r-1, c].setPlayer(true);
-            xLoc = r-1;
-            return;
-          }
-          else if(input.Equals("south") && r<2){
-            map[r, c].setPlayer(false);
-            map[r+1, c].setPlayer(true);
-            xLoc = r+1;
-            return;
-          }
-          else if(input.Equals("east") && c<2){
-            map[r, c].setPlayer(false);
-            map[r, c+1].setPlayer(true);
-            yLoc = c+1;
-            return;
-          }
-          else if(input.Equals("west") && c>0){
-            map[r, c].setPlayer(false);
-            map[r, c-1].setPlayer(true);
-            yLoc = c-1;
-            return;
-          }
-         else{
-            Console.WriteLine("Direction is not valid");
-            move();
-            return;
-         }
-        }
-      }
-    }
-  }
-public string roomName()
-{
-    return map[xLoc,yLoc].getRoomName();
-}
 }
