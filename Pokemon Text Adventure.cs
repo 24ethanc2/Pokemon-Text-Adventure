@@ -146,6 +146,11 @@ class Runner
                         }
                     }
                 }
+                
+            }
+            if(arceusHp < 0){
+                win = true;
+                break;
             }
         }
         if(win){
